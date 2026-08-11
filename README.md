@@ -10,6 +10,7 @@ A vibrant, fully responsive React Quiz application featuring general knowledge q
 - **Score Counter**: Live score updates as you answer each question.
 - **Comprehensive Results Screen**: Final percentage score, performance evaluation, and question-by-question answer breakdown.
 - **Restart Functionality**: Easily reset state to attempt the quiz again.
+- **Personal Best**: The highest score is saved in localStorage across attempts.
 - **Colorful Modern UI**: Smooth gradient backgrounds, cards, and responsive layout.
 
 ## Tech Stack
@@ -22,3 +23,4 @@ A vibrant, fully responsive React Quiz application featuring general knowledge q
 1. Place `App.jsx` and `App.css` in your React project `src` directory.
 2. Ensure `src/main.jsx` renders `<App />`.
 3. Run `npm run dev` to launch.
+
