@@ -71,6 +71,7 @@ export default function App() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [bestScore, setBestScore] = useState(() => Number(localStorage.getItem('quiz_best_score') || 0));
 
   const current = QUESTIONS[currentQuestion];
   const progressPercent = ((currentQuestion + 1) / QUESTIONS.length) * 100;
@@ -102,8 +103,17 @@ export default function App() {
       setSelectedOption(null);
       setIsAnswered(false);
     } else {
-      setShowResults(true);
+      finishQuiz();
     }
+  };
+
+  const finishQuiz = () => {
+    setBestScore(prev => {
+      const next = Math.max(prev, score);
+      localStorage.setItem('quiz_best_score', String(next));
+      return next;
+    });
+    setShowResults(true);
   };
 
   const handleRestart = () => {
@@ -136,7 +146,7 @@ export default function App() {
             <span className="question-count">
               Question <strong>{currentQuestion + 1}</strong> of {QUESTIONS.length}
             </span>
-            <span className="current-score">Score: {score}</span>
+            <span className="current-score">Score: {score} · Best: {bestScore}</span>
           </div>
 
           <div className="progress-bar-bg">
@@ -198,7 +208,7 @@ export default function App() {
           <div className="score-badge">
             <span className="big-score">{score}</span> / {QUESTIONS.length}
           </div>
-          <p className="score-percentage">{Math.round((score / QUESTIONS.length) * 100)}% Accuracy</p>
+          <p className="score-percentage">{Math.round((score / QUESTIONS.length) * 100)}% Accuracy · Personal best: {bestScore}/{QUESTIONS.length}</p>
           
           <div className="feedback-message">
             <h3>{getScoreMessage().title}</h3>
@@ -235,3 +245,4 @@ export default function App() {
     </div>
   );
 }
+
